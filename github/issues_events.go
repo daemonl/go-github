@@ -135,6 +135,9 @@ func (s *IssuesService) ListRepositoryEvents(ctx context.Context, owner, repo st
 		return nil, nil, err
 	}
 
+	acceptHeaders := []string{mediaTypeLockReasonPreview, mediaTypeProjectCardDetailsPreview}
+	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
+
 	var events []*IssueEvent
 	resp, err := s.client.Do(ctx, req, &events)
 	if err != nil {
